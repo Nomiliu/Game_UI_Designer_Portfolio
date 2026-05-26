@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Designer and art director portfolio specializing in brand identity, digital experiences, and editorial design.">
-  <title>Portfolio — Designer &amp; Art Director</title>
+  <meta name="description" content="游戏UI设计师作品集，专注于游戏界面设计、图标绘制、UI风格设定与交互体验。">
+  <title>作品集 — 游戏UI设计师</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -13,94 +13,217 @@
 <body>
 
   <nav class="nav">
-    <a href="#" class="nav__logo">LS</a>
-    <div class="nav__links">
-      <a href="#work" class="nav__link">Work</a>
-      <a href="#about" class="nav__link">About</a>
-      <a href="#contact" class="nav__link">Contact</a>
+    <a href="#" class="nav__logo">柳宁威<span class="nav__logo-sub">NOMI</span></a>
+    <div class="nav__links" id="navLinks">
+      <a href="#hero" class="nav__link">首页<span class="nav__sub">Home</span></a>
+      <a href="#experience" class="nav__link">经历<span class="nav__sub">Experience</span></a>
+      <a href="#work" class="nav__link">作品<span class="nav__sub">Work</span></a>
+      <a href="#about" class="nav__link">自我介绍<span class="nav__sub">About</span></a>
+      <a href="#contact" class="nav__link">联系<span class="nav__sub">Contact</span></a>
+    </div>
+    <div class="nav__more" id="navMore">
+      <button class="nav__more-btn" aria-label="更多">···</button>
+      <div class="nav__dropdown" id="navDropdown"></div>
     </div>
   </nav>
 
   <main>
     <!-- Hero -->
-    <section class="hero">
-      <div class="hero__orb"></div>
+    <section class="hero" id="hero">
+      <canvas class="hero__canvas" id="heroCanvas"></canvas>
       <div class="hero__scroll">Scroll</div>
       <div class="hero__content">
-        <p class="hero__eyebrow">Designer &amp; Art Director</p>
+        <p class="hero__eyebrow">Game UI Designer · Portfolio</p>
         <h1 class="hero__title">
-          <span class="hero__line">Design</span>
-          <span class="hero__line hero__line--accent">that leaves</span>
-          <span class="hero__line">a mark.</span>
+          <span class="hero__line">DESIGN</span>
+          <span class="hero__line hero__line--bold">THAT LEAVES</span>
+          <span class="hero__line">A MARK</span>
         </h1>
-        <p class="hero__desc">
-          Brand identity, digital experiences, and editorial design with focus on clarity, rhythm, and emotional resonance.
-        </p>
+        <div class="hero__divider"></div>
+        <div class="hero__specs">
+          <span>9+ Years</span>
+          <span>期望薪资：16k-20k</span>
+          <span>求职方向：游戏UI设计师、主UI、UI组长、或者是AI美术相关工作</span>
+        </div>
       </div>
     </section>
 
-    <!-- Work -->
+    <!-- Experience -->
+    <section class="experience" id="experience">
+      <h2 class="section-title">工作经历<span class="section-sub">Experience</span></h2>
+      <div class="exp-list">
+        <div class="exp-row reveal">
+          <span class="exp__year">2024.01 — 至今</span>
+          <span class="exp__company-name">成都鸣火互动科技有限公司</span>
+          <span class="exp__role">游戏UI设计师</span>
+          <div class="exp__desc">
+            <p>一、《咒术回战》二次元 卡牌</p>
+            <p>在该项目中主要负责了一些商业活动界面以及图标绘制</p>
+            <p>二、娘化日漫IP大乱斗 卡牌 二次元</p>
+            <p>1、前期主要负责UI风格设定</p>
+            <p>2、各个游戏系统的UI设计以及UI动效的概念设计</p>
+            <p>3、配合策划完成各个系统功能变更问题</p>
+            <p>4、整理美术资源以及UI规范</p>
+            <p>三、《进击的巨人》 回合制卡牌 二次元</p>
+            <p>1、负责UI风格设定</p>
+            <p>2、各个游戏系统的UI设计以及商业模块UI设计、UI动效的概念设计</p>
+            <p>3、配合策划完成各个系统功能变更问题</p>
+            <p>4、验收完成后UI表现效果</p>
+            <p>四、新项目（担任UI组长责任）</p>
+            <p>1、主要负责UI风格设计、前期的各个功能推进以及制定UI规范，让组员能够更快的进入新项目当中</p>
+            <p>2、制定各个组件自适应适配问题</p>
+            <p>3、规划任务分发组员以及进度跟品质验收</p>
+            <p>4、配合策划一起讨论各界面交互逻辑以及易用性最后优化</p>
+            <p>5、后期会跟动效讨论UI动效视觉上以及流畅衔接的动画问题，在一些细节上来处理更多能提升玩家体验感的东西</p>
+          </div>
+        </div>
+        <div class="exp-row reveal">
+          <span class="exp__year">2021.11 — 2023.11</span>
+          <span class="exp__company-name">成都动力部落科技有限公司</span>
+          <span class="exp__role">游戏UI设计师</span>
+          <div class="exp__desc">
+            <p>一、《开间小店》（女性向，模拟经营）手游、H5、PC</p>
+            <p>主要负责界面设计以及图标绘制</p>
+            <p>界面设计：</p>
+            <p>1、现有功能界面优化</p>
+            <p>开发新功能界面设计以及新活动的界面设计</p>
+            <p>其它现有活动界面优化以及延续设计</p>
+            <p>2、与编辑和程序沟通 UI 方面实现问题</p>
+            <p>检查程序最后实现后的界面效果是否跟效果图有差异</p>
+            <p>3、整理美术资源</p>
+            <p>二、新项目UI设计</p>
+            <p>1、负责UI风格设定以及各个功能的UI设计</p>
+            <p>2、制定UI设计规范以及整理美术资源</p>
+          </div>
+        </div>
+        <div class="exp-row reveal">
+          <span class="exp__year">2021.07 — 2021.10</span>
+          <span class="exp__company-name">成都沙漏科技有限公司</span>
+          <span class="exp__role">游戏UI设计师</span>
+          <div class="exp__desc">
+            <p>在研项目 二次元偏科技手游</p>
+            <p>主要负责UI设计（风格设定，图标图形设计）</p>
+            <p>1、根据游戏设定以及策划的需求，设计游戏相匹配的 UI 风格以及各个功能模块界面</p>
+            <p>后续因项目组出现一些问题已解散</p>
+          </div>
+        </div>
+        <div class="exp-row reveal">
+          <span class="exp__year">2021.06 — 2021.07</span>
+          <span class="exp__company-name">成都乐曼多科技有限公司</span>
+          <span class="exp__role">游戏UI设计师</span>
+          <div class="exp__desc">
+            <p>《灌篮高手》IP 项目手游</p>
+            <p>主要负责界面设计以及图标优化</p>
+            <p>在这家公司待得不久，期间只负责了整个抽卡系统中的 UI 设计以及其它功能上的界面优化</p>
+            <p>后续因个人原因选择离职。</p>
+          </div>
+        </div>
+        <div class="exp-row reveal">
+          <span class="exp__year">2019.03 — 2021.05</span>
+          <span class="exp__company-name">成都算力网络科技有限公司</span>
+          <span class="exp__role">游戏UI设计师</span>
+          <div class="exp__desc">
+            <p>1、主要负责游戏风格设定，图标以及使用 AE 制作一些简单特效方面的制作</p>
+            <p>2、与策划、程序对接，商量实现效果的问题</p>
+            <p>3、带新人</p>
+          </div>
+        </div>
+        <div class="exp-row reveal">
+          <span class="exp__year">2018.06 — 2019.03</span>
+          <span class="exp__company-name">成都美绘天下科技有限公司</span>
+          <span class="exp__role">游戏UI设计师</span>
+          <div class="exp__desc">
+            <p>期间设计过多款游戏界面以及图标，接触各种风格，做过的项目其中有包括腾讯、网易等等。</p>
+            <p>1、UI 风格设计以及延续设计（其中包括《三国杀》古风、腾讯《少女换装》二次元，等等）</p>
+            <p>2、图标设计</p>
+          </div>
+        </div>
+        <div class="exp-row reveal">
+          <span class="exp__year">2017.07 — 2018.05</span>
+          <span class="exp__company-name">华颂网络（深圳）科技有限公司</span>
+          <span class="exp__role">游戏UI设计师</span>
+          <div class="exp__desc">
+            <p>1、主要负责风格设定、图标绘制、界面设计</p>
+            <p>2、广告设计</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Client Work -->
     <section class="work" id="work">
-      <h2 class="section-title">Selected Work</h2>
-      <div class="grid">
-        <div class="grid__item grid__item--large reveal" data-project="0">
-          <div class="grid__media">
-            <img class="grid__img" src="images/work-01.jpg" alt="Aether Magazine" draggable="false" loading="eager">
+      <h2 class="section-title">项目作品<span class="section-sub">Project Work</span></h2>
+      <div class="work-list">
+        <div class="work-row reveal" data-project="0">
+          <div class="work-row__media">
+            <img class="work-row__img" src="images/work-01.jpg" alt="Aether Magazine" draggable="false" loading="eager">
           </div>
-          <div class="grid__info">
-            <span class="grid__num">01</span>
-            <h3 class="grid__title">Aether Magazine</h3>
-            <span class="grid__meta">Editorial Design / 2024</span>
-          </div>
-        </div>
-        <div class="grid__item reveal" data-project="1">
-          <div class="grid__media">
-            <img class="grid__img" src="images/work-02.jpg" alt="Kōan Sound" draggable="false" loading="eager">
-          </div>
-          <div class="grid__info">
-            <span class="grid__num">02</span>
-            <h3 class="grid__title">Kōan Sound</h3>
-            <span class="grid__meta">Brand Identity / 2024</span>
+          <div class="work-row__info">
+            <span class="work-row__num">01</span>
+            <h3 class="work-row__title">Aether Magazine</h3>
+            <span class="work-row__meta">编辑设计 / 2024</span>
           </div>
         </div>
-        <div class="grid__item grid__item--tall reveal" data-project="2">
-          <div class="grid__media">
-            <img class="grid__img" src="images/work-03.jpg" alt="Mono Restaurant" draggable="false" loading="eager">
+        <div class="work-row reveal" data-project="1">
+          <div class="work-row__media">
+            <img class="work-row__img" src="images/work-02.jpg" alt="Kōan Sound" draggable="false" loading="eager">
           </div>
-          <div class="grid__info">
-            <span class="grid__num">03</span>
-            <h3 class="grid__title">Mono Restaurant</h3>
-            <span class="grid__meta">Branding &amp; Space / 2023</span>
-          </div>
-        </div>
-        <div class="grid__item grid__item--wide reveal" data-project="3">
-          <div class="grid__media">
-            <img class="grid__img" src="images/work-04.jpg" alt="Offset Grid" draggable="false" loading="eager">
-          </div>
-          <div class="grid__info">
-            <span class="grid__num">04</span>
-            <h3 class="grid__title">Offset Grid</h3>
-            <span class="grid__meta">Digital Experience / 2023</span>
+          <div class="work-row__info">
+            <span class="work-row__num">02</span>
+            <h3 class="work-row__title">Kōan Sound</h3>
+            <span class="work-row__meta">品牌设计 / 2024</span>
           </div>
         </div>
-        <div class="grid__item reveal" data-project="4">
-          <div class="grid__media">
-            <img class="grid__img" src="images/work-05.jpg" alt="Nova Typeface" draggable="false" loading="eager">
+        <div class="work-row reveal" data-project="2">
+          <div class="work-row__media">
+            <img class="work-row__img" src="images/work-03.jpg" alt="Mono Restaurant" draggable="false" loading="eager">
           </div>
-          <div class="grid__info">
-            <span class="grid__num">05</span>
-            <h3 class="grid__title">Nova Typeface</h3>
-            <span class="grid__meta">Type Design / 2022</span>
+          <div class="work-row__info">
+            <span class="work-row__num">03</span>
+            <h3 class="work-row__title">Mono Restaurant</h3>
+            <span class="work-row__meta">品牌与空间 / 2023</span>
           </div>
         </div>
-        <div class="grid__item reveal" data-project="5">
-          <div class="grid__media">
-            <img class="grid__img" src="images/work-06.jpg" alt="Terrain Maps" draggable="false" loading="eager">
+      </div>
+    </section>
+
+    <div class="work-divider">
+      <span class="work-divider__label">Personal</span>
+      <span class="work-divider__line"></span>
+    </div>
+
+    <!-- Personal Work -->
+    <section class="work">
+      <h2 class="section-title">个人作品<span class="section-sub">Personal Work</span></h2>
+      <div class="work-list">
+        <div class="work-row reveal" data-project="3">
+          <div class="work-row__media">
+            <img class="work-row__img" src="images/work-04.jpg" alt="Offset Grid" draggable="false" loading="eager">
           </div>
-          <div class="grid__info">
-            <span class="grid__num">06</span>
-            <h3 class="grid__title">Terrain Maps</h3>
-            <span class="grid__meta">Data Visualization / 2022</span>
+          <div class="work-row__info">
+            <span class="work-row__num">04</span>
+            <h3 class="work-row__title">Offset Grid</h3>
+            <span class="work-row__meta">数字体验 / 2023</span>
+          </div>
+        </div>
+        <div class="work-row reveal" data-project="4">
+          <div class="work-row__media">
+            <img class="work-row__img" src="images/work-05.jpg" alt="Nova Typeface" draggable="false" loading="eager">
+          </div>
+          <div class="work-row__info">
+            <span class="work-row__num">05</span>
+            <h3 class="work-row__title">Nova Typeface</h3>
+            <span class="work-row__meta">字体设计 / 2022</span>
+          </div>
+        </div>
+        <div class="work-row reveal" data-project="5">
+          <div class="work-row__media">
+            <img class="work-row__img" src="images/work-06.jpg" alt="Terrain Maps" draggable="false" loading="eager">
+          </div>
+          <div class="work-row__info">
+            <span class="work-row__num">06</span>
+            <h3 class="work-row__title">Terrain Maps</h3>
+            <span class="work-row__meta">数据可视化 / 2022</span>
           </div>
         </div>
       </div>
@@ -108,35 +231,23 @@
 
     <!-- About -->
     <section class="about" id="about">
-      <h2 class="section-title">About</h2>
-      <p class="about__quote">
-        Design is not decoration but <span class="about__highlight">distillation</span> — finding the simplest, most honest expression of an idea.
-      </p>
-      <div class="about__meta">
-        <span>Shanghai</span>
-        <span>&middot;</span>
-        <span>8+ years</span>
-        <span>&middot;</span>
-        <span>Available worldwide</span>
-      </div>
-      <div class="about__clients">
-        <span class="about__clients-label">Selected Clients</span>
-        <ul>
-          <li>Nike</li>
-          <li>Apple</li>
-          <li>The New York Times</li>
-          <li>Herm&egrave;s</li>
-          <li>Spotify</li>
-          <li>Muji</li>
-        </ul>
+      <h2 class="section-title">自我介绍<span class="section-sub">About Me</span></h2>
+      <div class="about__quote">
+        <p>游戏 UI 工作经验9年，多数都在小型研发公司任职（可以让自己学习的更多），主要工作内容（UI风格设定、功能推进、各个商业板块界面设计、图标绘制）。</p>
+        <p>可用 <span class="about__highlight">AE</span> 展示 UI 动效演示，也可用<span class="about__highlight">AI</span>展示，<span class="about__highlight">Claude code</span>、<span class="about__highlight">figma</span>。手绘能力良好，设计风格不限，有自学能力，擅长二次元以及古风设计。</p>
+        <p>AI方面经验：</p>
+        <p>1、熟练使用comfyUI，不太喜欢用这个，BUG太多，更新太快，刚搭建好新的就来了。不如花钱在一些网站上直接用模型出图。现阶段已知的：Nano Banana出图标，GPT Image2跑概念。</p>
+        <p>2、Claude code（本地部署，各模型调用，电脑好的话，市面上大多数模型都可本地部署，比如Nano Banana、GPT Image2都可调用）</p>
+        <p>其他辅助技能：</p>
+        <p>figma。可根据策划案子出UE/UX。</p>
       </div>
     </section>
 
     <!-- Contact -->
     <section class="contact" id="contact">
-      <h2 class="section-title">Get in Touch</h2>
+      <h2 class="section-title">联系方式<span class="section-sub">Contact</span></h2>
       <div class="contact__content">
-        <p class="contact__cta">Let&rsquo;s work<br>together.</p>
+        <p class="contact__cta">一起<br>做点有意思的。</p>
         <a href="mailto:hello@studio.design" class="contact__email">hello@studio.design</a>
         <div class="contact__social">
           <a href="#">Instagram</a>
@@ -163,7 +274,7 @@
   </div>
 
   <footer class="footer">
-    <p>&copy; 2026 Studio. All rights reserved.</p>
+    <p>&copy; 2026 保留所有权利。</p>
   </footer>
 
   <!-- Image Lightbox -->

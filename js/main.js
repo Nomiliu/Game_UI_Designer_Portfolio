@@ -2,6 +2,169 @@
  * Designer Portfolio — Bold Morph interactions
  */
 
+// --- Hero Canvas Particle System ---
+(function() {
+  const canvas = document.getElementById('heroCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  let w, h, particles;
+  const PARTICLE_COUNT = 120;
+
+  function resize() {
+    w = canvas.width = canvas.offsetWidth;
+    h = canvas.height = canvas.offsetHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function createParticles() {
+    particles = [];
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 2.5 + 1,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        hue: Math.random() < 0.5 ? 14 : 174,
+        alpha: Math.random() * 0.6 + 0.2
+      });
+    }
+  }
+  createParticles();
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 160) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `hsla(${particles[i].hue}, 80%, 60%, ${0.12 * (1 - dist / 160)})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      }
+    }
+    for (const p of particles) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${p.hue}, 80%, 60%, ${p.alpha})`;
+      ctx.fill();
+    }
+  }
+
+  function update() {
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0) p.x = w;
+      if (p.x > w) p.x = 0;
+      if (p.y < 0) p.y = h;
+      if (p.y > h) p.y = 0;
+      p.vx += (Math.random() - 0.5) * 0.02;
+      p.vy += (Math.random() - 0.5) * 0.02;
+      const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+      if (speed > 0.5) {
+        p.vx = (p.vx / speed) * 0.5;
+        p.vy = (p.vy / speed) * 0.5;
+      }
+    }
+  }
+
+  function animate() {
+    update();
+    draw();
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+// --- Equal nav widths ---
+const navLinks = document.querySelectorAll('.nav__link[href^="#"]');
+let maxW = 0;
+navLinks.forEach(l => { l.style.width = 'auto'; maxW = Math.max(maxW, l.offsetWidth); });
+navLinks.forEach(l => { l.style.width = maxW + 'px'; });
+
+// --- Nav click active ---
+navLinks[0]?.classList.add('active');
+navLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.forEach(l => l.classList.remove('active'));
+    link.classList.add('active');
+  });
+});
+
+// --- Nav overflow + swap dropdown ---
+const navEl = document.querySelector('.nav');
+const linksBox = document.getElementById('navLinks');
+const moreBtn = document.getElementById('navMore');
+const dropBox = document.getElementById('navDropdown');
+const allLinks = [...linksBox.querySelectorAll('.nav__link')];
+
+function overflow() {
+  // Reset
+  allLinks.forEach(l => linksBox.appendChild(l));
+  moreBtn.style.display = 'none';
+  dropBox.innerHTML = '';
+
+  const navW = navEl.offsetWidth;
+  const logoW = navEl.querySelector('.nav__logo').offsetWidth;
+  const avail = navW - logoW - 120;
+
+  if (linksBox.scrollWidth <= avail) return;
+
+  moreBtn.style.display = 'block';
+  // Find overflow items
+  const hide = [];
+  let w = 0;
+  for (const l of allLinks) {
+    w += l.offsetWidth + 10;
+    if (w > avail) hide.push(l);
+  }
+  hide.forEach(l => l.remove());
+  renderDrop();
+}
+
+function renderDrop() {
+  dropBox.innerHTML = '';
+  allLinks.forEach(orig => {
+    if (linksBox.contains(orig)) return;
+    const c = orig.cloneNode(true);
+    c.classList.remove('active');
+    c.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const last = linksBox.lastElementChild;
+      if (last) last.remove();
+      linksBox.appendChild(orig);
+      moreBtn.classList.remove('open');
+      renderDrop();
+      navLinks.forEach(l => l.classList.remove('active'));
+      orig.classList.add('active');
+      const href = orig.getAttribute('href');
+      const t = document.querySelector(href);
+      if (t) t.scrollIntoView({ behavior: 'smooth' });
+    });
+    dropBox.appendChild(c);
+  });
+}
+
+window.addEventListener('resize', overflow);
+overflow();
+
+moreBtn.querySelector('.nav__more-btn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  moreBtn.classList.toggle('open');
+});
+document.addEventListener('click', (e) => {
+  if (!moreBtn.contains(e.target)) moreBtn.classList.remove('open');
+});
+
 // --- Intersection Observer: scroll reveals ---
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
@@ -30,7 +193,6 @@ window.addEventListener('scroll', forceRevealCheck, { passive: true });
 // --- Hero orb parallax ---
 const orb = document.querySelector('.hero__orb');
 let orbRaf = null;
-
 window.addEventListener('scroll', () => {
   if (orbRaf) return;
   orbRaf = requestAnimationFrame(() => {
@@ -44,24 +206,23 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 // --- Prevent image drag ---
-document.querySelectorAll('.grid__img').forEach((img) => {
+document.querySelectorAll('.work-row__img').forEach((img) => {
   img.addEventListener('dragstart', (e) => e.preventDefault());
 });
 
 // --- Image tilt on hover ---
-document.querySelectorAll('.grid__media').forEach((media) => {
+document.querySelectorAll('.work-row__media').forEach((media) => {
   media.addEventListener('mousemove', (e) => {
     const rect = media.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    const img = media.querySelector('.grid__img');
+    const img = media.querySelector('.work-row__img');
     if (img) {
-      img.style.transform = `scale(1.06) perspective(800px) rotateY(${x * 4}deg) rotateX(${-y * 4}deg)`;
+      img.style.transform = `scale(1.04) perspective(800px) rotateY(${x * 4}deg) rotateX(${-y * 4}deg)`;
     }
   });
-
   media.addEventListener('mouseleave', () => {
-    const img = media.querySelector('.grid__img');
+    const img = media.querySelector('.work-row__img');
     if (img) img.style.transform = '';
   });
 });
@@ -76,62 +237,58 @@ const projects = [
   {
     num: '01',
     title: 'Aether Magazine',
-    meta: 'Editorial Design / 2024',
+    meta: '编辑设计 / 2024',
     img: 'work-01',
-    desc: 'A full redesign for an independent fashion and culture publication. The project spanned six issues across two years, establishing a bold new visual language that balances editorial gravitas with contemporary energy.',
-    details: { Client: 'Aether Publishing', Role: 'Design Director', Year: '2024', Scope: 'Editorial, Art Direction, Print' }
+    desc: '为独立时尚文化刊物进行全面改版设计，跨越两年六期刊物，建立了一个平衡编辑分量与当代能量的大胆视觉语言。',
+    details: { 客户: 'Aether Publishing', 角色: '设计总监', 年份: '2024', 范围: '编辑、艺术指导、印刷' }
   },
   {
     num: '02',
     title: 'Kōan Sound',
-    meta: 'Brand Identity / 2024',
+    meta: '品牌设计 / 2024',
     img: 'work-02',
-    desc: 'A complete brand system for an experimental music label — from logotype and typography to vinyl packaging and digital assets. The identity reflects the label\'s ethos of minimalist precision and sonic exploration.',
-    details: { Client: 'Kōan Sound Records', Role: 'Brand Designer', Year: '2024', Scope: 'Brand Identity, Packaging, Digital' }
+    desc: '为实验音乐厂牌打造的完整品牌系统——从标志、字体到黑胶包装和数字资产，体现厂牌极简精准与声音探索的精神。',
+    details: { 客户: 'Kōan Sound Records', 角色: '品牌设计师', 年份: '2024', 范围: '品牌识别、包装、数字' }
   },
   {
     num: '03',
     title: 'Mono Restaurant',
-    meta: 'Branding & Space / 2023',
+    meta: '品牌与空间 / 2023',
     img: 'work-03',
-    desc: 'Identity and environmental graphics for a Michelin-starred restaurant in Copenhagen. The project encompassed everything from the menu system to wayfinding and interior graphic installations.',
-    details: { Client: 'Mono Group', Role: 'Lead Designer', Year: '2023', Scope: 'Branding, Environmental, Print' }
+    desc: '为哥本哈根米其林星级餐厅打造的识别与环境图形设计，涵盖菜单系统、导视和室内图形装置。',
+    details: { 客户: 'Mono Group', 角色: '主设计师', 年份: '2023', 范围: '品牌、环境、印刷' }
   },
   {
     num: '04',
     title: 'Offset Grid',
-    meta: 'Digital Experience / 2023',
+    meta: '数字体验 / 2023',
     img: 'work-04',
-    desc: 'An experimental web platform exploring generative typography and real-time layout computation. Users can manipulate typographic variables and see the results rendered instantly through WebGL.',
-    details: { Client: 'Self-initiated', Role: 'Creative Technologist', Year: '2023', Scope: 'Web, Generative Design, Development' }
+    desc: '一个探索生成式排版与实时布局计算的实验性网页平台，用户可调整排版变量并通过WebGL即时预览效果。',
+    details: { 客户: '个人项目', 角色: '创意技术', 年份: '2023', 范围: '网页、生成式设计、开发' }
   },
   {
     num: '05',
     title: 'Nova Typeface',
-    meta: 'Type Design / 2022',
+    meta: '字体设计 / 2022',
     img: 'work-05',
-    desc: 'A contemporary serif typeface designed for editorial use, featuring optical sizes from caption to display. The family includes six weights with matching italics.',
-    details: { Client: 'Nova Foundry', Role: 'Type Designer', Year: '2022', Scope: 'Type Design, Specimen, Print' }
+    desc: '为编辑用途设计的当代衬线字体，支持从说明文字到标题的光学字号，包含六种字重及对应斜体。',
+    details: { 客户: 'Nova Foundry', 角色: '字体设计师', 年份: '2022', 范围: '字体设计、样本、印刷' }
   },
   {
     num: '06',
     title: 'Terrain Maps',
-    meta: 'Data Visualization / 2022',
+    meta: '数据可视化 / 2022',
     img: 'work-06',
-    desc: 'An interactive cartography series exploring topographic data through generative algorithms. Each map is a unique print generated from real-world elevation data.',
-    details: { Client: 'National Geographic', Role: 'Creative Technologist', Year: '2022', Scope: 'Data Viz, Generative, Print' }
+    desc: '通过生成算法探索地形数据的交互式制图系列，每张地图都是由真实高程数据生成的独特印刷品。',
+    details: { 客户: '国家地理', 角色: '创意技术', 年份: '2022', 范围: '数据可视化、生成式、印刷' }
   }
 ];
 
 function openModal(idx) {
   const p = projects[idx];
   if (!p) return;
-
-  // Hero image
   modalHeroImg.src = `images/${p.img}.jpg`;
   modalHeroImg.alt = p.title;
-
-  // Info overlay
   const detailsHTML = Object.entries(p.details).map(([key, val]) =>
     `<li><dt>${key}</dt><dd>${val}</dd></li>`
   ).join('');
@@ -142,15 +299,12 @@ function openModal(idx) {
     <p class="modal__desc">${p.desc}</p>
     <dl class="modal__details">${detailsHTML}</dl>
   `;
-
-  // Gallery: 6 related images
   let galleryHTML = '';
   for (let i = 1; i <= 6; i++) {
     const gi = String(i).padStart(2, '0');
     galleryHTML += `<img class="modal__gallery-img" src="images/${p.img}-${gi}.jpg" alt="${p.title} — ${i}" loading="eager">`;
   }
   modalGallery.innerHTML = galleryHTML;
-
   modal.classList.add('open');
   document.body.style.overflow = 'hidden';
   modal.querySelector('.modal__panel').scrollTop = 0;
@@ -161,7 +315,7 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-document.querySelectorAll('.grid__item').forEach((item) => {
+document.querySelectorAll('.work-row').forEach((item) => {
   item.addEventListener('click', () => {
     const idx = parseInt(item.dataset.project);
     if (!isNaN(idx)) openModal(idx);
@@ -184,7 +338,6 @@ let lightboxImages = [];
 let lightboxIndex = 0;
 
 function openLightbox(src) {
-  // Collect all current gallery image srcs
   const imgs = modalGallery.querySelectorAll('.modal__gallery-img');
   lightboxImages = Array.from(imgs).map((img) => img.src);
   lightboxIndex = lightboxImages.indexOf(src);
