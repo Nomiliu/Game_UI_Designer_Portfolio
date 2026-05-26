@@ -272,6 +272,17 @@ a {
   pointer-events: none;
 }
 
+.hero__bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
 /* Hero tech grid overlay */
 .hero::before {
   content: '';
@@ -484,7 +495,7 @@ a {
 .work-list {
   display: flex;
   flex-direction: column;
-  padding: 0 clamp(4rem, 10vw, 10rem);
+  padding: 0 clamp(6rem, 14vw, 14rem);
 }
 
 /* --- Work Row (full-width image + floating info) --- */
