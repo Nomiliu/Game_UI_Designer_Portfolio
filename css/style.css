@@ -494,7 +494,7 @@ a {
 
 /* --- Work Sections --- */
 .work {
-  padding: 1rem 0;
+  padding: 1rem 0 8rem;
   background: var(--cream);
   color: var(--ink);
 }
@@ -716,7 +716,7 @@ a {
   padding-left: calc(200px + 2rem);
   font-size: 0.85rem;
   line-height: 1.8;
-  opacity: 0.45;
+  opacity: 0.7;
 }
 
 .exp__desc p {
@@ -725,7 +725,7 @@ a {
 
 /* --- About --- */
 .about {
-  padding: 4rem var(--gap);
+  padding: 4rem var(--gap) 10rem;
   background: var(--ink);
   color: var(--cream);
   position: relative;
@@ -764,6 +764,33 @@ a {
 /* Content */
 .about__content {
   max-width: 650px;
+  position: relative;
+  padding: 2.5rem;
+  border: 1px solid rgba(242, 239, 233, 0.06);
+  border-radius: 2px;
+}
+
+/* Corner accents */
+.about__content::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 40px;
+  height: 40px;
+  border-top: 1px solid rgba(78, 205, 196, 0.2);
+  border-left: 1px solid rgba(78, 205, 196, 0.2);
+}
+
+.about__content::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 40px;
+  height: 40px;
+  border-bottom: 1px solid rgba(255, 107, 53, 0.2);
+  border-right: 1px solid rgba(255, 107, 53, 0.2);
 }
 
 .about .section-title {
@@ -775,7 +802,9 @@ a {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--ember);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(242, 239, 233, 0.06);
 }
 
 .about__headline {
@@ -790,6 +819,17 @@ a {
 .about__headline em {
   font-style: normal;
   color: var(--teal);
+  position: relative;
+}
+
+.about__headline em::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(78, 205, 196, 0.3);
 }
 
 .about__body {
@@ -798,6 +838,8 @@ a {
   opacity: 0.5;
   max-width: 500px;
   margin-bottom: 2rem;
+  position: relative;
+  top: 20px;
 }
 
 /* Skill tags */
@@ -806,6 +848,8 @@ a {
   gap: 0.6rem;
   flex-wrap: wrap;
   margin-bottom: 1.5rem;
+  position: relative;
+  top: 140px;
 }
 
 .about__skills span {
@@ -826,10 +870,14 @@ a {
 }
 
 .about__extra {
-  font-size: 0.95rem;
-  line-height: 1.7;
-  opacity: 0.3;
-  max-width: 450px;
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  line-height: 1.8;
+  opacity: 0.5;
+  max-width: 500px;
+  position: relative;
+  top: 20px;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(242, 239, 233, 0.06);
 }
 
 .about__meta {
@@ -1065,6 +1113,10 @@ a {
     font-size: 6rem;
     top: 3rem;
     right: 1rem;
+  }
+
+  .about__content {
+    padding: 1.5rem;
   }
 
   .about__headline {
