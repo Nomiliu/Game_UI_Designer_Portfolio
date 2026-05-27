@@ -205,6 +205,44 @@ window.addEventListener('scroll', () => {
   });
 }, { passive: true });
 
+// --- Custom cursor ---
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0;
+let cursorX = 0, cursorY = 0;
+let ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  cursor.style.left = mouseX + 'px';
+  cursor.style.top = mouseY + 'px';
+  cursorX = mouseX;
+  cursorY = mouseY;
+});
+
+function animateCursor() {
+  ringX += (mouseX - ringX) * 0.15;
+  ringY += (mouseY - ringY) * 0.15;
+  cursorRing.style.left = ringX + 'px';
+  cursorRing.style.top = ringY + 'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// Hover effect on interactive elements
+const hoverTargets = document.querySelectorAll('a, button, .work-row, .modal__gallery-img');
+hoverTargets.forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.classList.add('hover');
+    cursorRing.classList.add('hover');
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.classList.remove('hover');
+    cursorRing.classList.remove('hover');
+  });
+});
+
 // --- Prevent image drag ---
 document.querySelectorAll('.work-row__img').forEach((img) => {
   img.addEventListener('dragstart', (e) => e.preventDefault());
