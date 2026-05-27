@@ -37,6 +37,12 @@ a, button, .work-row, .grid__item, input, textarea {
   cursor: none;
 }
 
+@media (hover: none) and (pointer: coarse) {
+  html { cursor: auto; }
+  .cursor, .cursor-ring { display: none; }
+  a, button, .work-row { cursor: auto; }
+}
+
 body {
   font-family: var(--font-body);
   background: var(--ink);
@@ -121,22 +127,23 @@ a {
 
 .nav__link {
   display: inline-flex;
-  flex-direction: row;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  gap: 0.35em;
-  padding: 0.25em 1em;
+  text-align: center;
+  padding: 0.4em 1em;
   border-radius: 20px;
   white-space: nowrap;
 }
 
 .nav__sub {
-  font-size: 0.5em;
+  position: absolute;
+  font-size: 0.45em;
   font-weight: 400;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  opacity: 0.35;
+  opacity: 0.25;
   line-height: 1;
+  pointer-events: none;
 }
 
 .nav__link::after {
@@ -487,9 +494,17 @@ a {
 
 /* --- Work Sections --- */
 .work {
-  padding: 6rem 0 4rem;
+  padding: 1rem 0;
   background: var(--cream);
   color: var(--ink);
+}
+
+#work {
+  margin-top: 0;
+}
+
+.work + .work-divider + .work {
+  margin-top: -50px;
 }
 
 .work .section-title {
@@ -642,7 +657,7 @@ a {
 
 /* --- Experience --- */
 .experience {
-  padding: clamp(5.7rem, 8.5vw, 6.8rem) var(--gap) 6rem;
+  padding: 1rem var(--gap) 1rem;
   background: var(--cream);
   color: var(--ink);
 }
@@ -710,7 +725,7 @@ a {
 
 /* --- About --- */
 .about {
-  padding: 8rem var(--gap);
+  padding: 4rem var(--gap);
   background: var(--ink);
   color: var(--cream);
   position: relative;
